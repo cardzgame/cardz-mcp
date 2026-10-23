@@ -13,6 +13,10 @@ Free, read-only MCP server for graded TCG card data. PSA 10 prices, population, 
 | Website | https://mcp.cardz.game/ |
 | MCP Registry | `io.github.cardzgame/cardz-mcp` |
 
+```bash
+claude mcp add --transport http cardz https://mcp.cardz.game/mcp
+```
+
 > This repository is the public listing for the hosted remote server (README, `server.json` for the Official MCP Registry). Hosted remote server; source not public.
 
 CARDZ MCP is a hosted, read-only MCP server that brings CardZ Marketcap's graded Pokémon and One Piece card data into any MCP-compatible AI conversation. It exposes three tools over Streamable HTTP — no API key, no account, no login.
