@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "identitySubmissionId": "idn-20261120-demo01",
+  "cardId": "c24b961b6a7701ce5",
+  "jlpStandardName": "2023 Pikachu [SV2a 025/165] JP",
+  "externalIdentities": [
+    {
+      "namespace": "jlp_standard",
+      "externalId": "2023 Pikachu [SV2a 025/165] JP",
+      "displayLabel": "JLP Standard"
+    },
+    {
+      "namespace": "snkrdunk",
+      "externalId": "102424",
+      "canonicalUrl": "https://snkrdunk.com/apparels/102424"
+    },
+    {
+      "namespace": "tcgplayer",
+      "externalId": "518881",
+      "canonicalUrl": "https://www.tcgplayer.com/product/518881"
+    },
+    {
+      "namespace": "pricecharting",
+      "externalId": "pokemon-japanese-151-pikachu-25",
+      "canonicalUrl": "https://www.pricecharting.com/game/pokemon-japanese-151/pikachu-25"
+    }
+  ],
+  "aliases": {
+    "en": ["Pikachu 025/165 SV2a", "151 Pikachu JP 025/165"],
+    "zh-TW": ["皮卡丘 SV2a 025/165"],
+    "ja": ["ピカチュウ 025/165 SV2a"],
+    "ko": ["피카츄 025/165"]
+  },
+  "samePrintingAttested": true,
+  "evidenceUrls": [
+    "https://www.pokemon-card.com/card-search/details.php/card/43606"
+  ],
+  "rationale": "Cross-market canonical identity alignment linking JP/US public catalog IDs and JLP standard alias to one canonical card_id.",
+  "submittedAt": "2026-11-20T01:00:00Z"
+}

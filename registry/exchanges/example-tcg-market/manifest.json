@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "exchangeSlug": "example-tcg-market",
+  "displayName": "Example TCG Marketplace",
+  "websiteUrl": "https://example-tcg-market.example.com",
+  "operatingRegions": ["US", "JP"],
+  "settlementCurrencies": ["USD", "JPY"],
+  "supportedIps": ["pokemon", "one-piece"],
+  "supportedGrades": ["PSA10", "PSA9", "RAW"],
+  "dataFeed": {
+    "feedType": "rest_api",
+    "providesVerifiedSold": true,
+    "providesOrderBook": true,
+    "supportsIncrementalCursor": true,
+    "hasStableTransactionId": true,
+    "bestOfferReportsActualPaid": true,
+    "separatesShippingFee": true,
+    "supportsRetractionEvents": true,
+    "docsUrl": "https://docs.example-tcg-market.example.com/public-sales-api",
+    "authType": "public_noauth",
+    "estimatedDailyVolumeUsd": 125000
+  },
+  "integrityControls": {
+    "antiWashTradingSummary": "Self-trade detection blocks matching buyer/seller accounts, payment instruments, and shipping addresses; cancelled orders emit retraction events within 15 minutes.",
+    "includesPii": false
+  },
+  "sampleTransactions": [
+    { "txId": "ex-1001", "soldAt": "2026-11-18T12:00:00Z", "ip": "pokemon", "cardTitle": "Charizard ex", "collectorNumber": "199/165", "cardLanguage": "en", "grade": "PSA10", "priceAmount": 485, "currency": "USD", "shippingAmount": 10, "listingUrl": "https://example-tcg-market.example.com/tx/ex-1001" },
+    { "txId": "ex-1002", "soldAt": "2026-11-18T13:30:00Z", "ip": "one-piece", "cardTitle": "Monkey D. Luffy (Alt Art)", "collectorNumber": "OP05-119", "cardLanguage": "ja", "grade": "PSA10", "priceAmount": 27000, "currency": "JPY", "shippingAmount": 500, "listingUrl": "https://example-tcg-market.example.com/tx/ex-1002" },
+    { "txId": "ex-1003", "soldAt": "2026-11-18T15:10:00Z", "ip": "one-piece", "cardTitle": "Monkey D. Luffy (Manga)", "collectorNumber": "OP05-119", "cardLanguage": "en", "grade": "PSA10", "priceAmount": 3150, "currency": "USD", "shippingAmount": 0, "listingUrl": "https://example-tcg-market.example.com/tx/ex-1003" },
+    { "txId": "ex-1004", "soldAt": "2026-11-19T09:20:00Z", "ip": "pokemon", "cardTitle": "Umbreon ex", "collectorNumber": "217/187", "cardLanguage": "ja", "grade": "PSA10", "priceAmount": 58000, "currency": "JPY", "shippingAmount": 600, "listingUrl": "https://example-tcg-market.example.com/tx/ex-1004" },
+    { "txId": "ex-1005", "soldAt": "2026-11-19T11:45:00Z", "ip": "pokemon", "cardTitle": "Pikachu ex", "collectorNumber": "238/191", "cardLanguage": "en", "grade": "RAW", "priceAmount": 295, "currency": "USD", "shippingAmount": 5, "listingUrl": "https://example-tcg-market.example.com/tx/ex-1005" }
+  ],
+  "contactEmail": "partnerships@example-tcg-market.example.com",
+  "submittedAt": "2026-11-20T00:00:00Z"
+}

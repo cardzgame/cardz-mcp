@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.cardz.game/mcp/v2/search-cards.schema.json",
+  "input": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["q"],
+    "additionalProperties": false,
+    "properties": {
+      "q": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200,
+        "description": "Card name, multilingual alias (EN/ZH/JA/KO), collector number, JLP standard alias (e.g. '2023 Pikachu [SV2a 025/165] JP'), or public external ID (e.g. 'tcgplayer:518881', 'snkrdunk:102424')."
+      },
+      "lang": {
+        "type": "string",
+        "enum": ["en", "zh-TW", "ja", "ko"],
+        "description": "Language for display labels in the response. Does not filter by printing language."
+      },
+      "tcg": {
+        "type": "string",
+        "enum": ["pokemon", "one-piece", "kpop", "sports", "naruto"],
+        "description": "Optional game/IP filter. Omit to search across all published IPs."
+      },
+      "cardLanguage": {
+        "type": "string",
+        "enum": ["en", "ja", "zh", "ko"],
+        "description": "Optional v2 filter for exact card printing language."
+      },
+      "externalNamespace": {
+        "type": "string",
+        "enum": ["jlp_standard", "tcgplayer", "snkrdunk", "pricecharting", "cmc", "psa_spec", "official_dex"],
+        "description": "Optional explicit public external namespace when q contains a raw external identifier."
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 8,
+        "default": 8,
+        "description": "Maximum candidate printings to return (default 8, hard cap 8 to prevent bulk scraping)."
+      }
+    }
+  },
+  "output": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["source", "currency", "effectiveAt", "totalMatches", "needsDisambiguation", "cards"],
+    "properties": {
+      "source": { "type": "string", "const": "CardZ Marketcap" },
+      "currency": { "type": "string", "const": "USD" },
+      "effectiveAt": { "type": "string", "format": "date-time" },
+      "totalMatches": { "type": "integer", "minimum": 0 },
+      "needsDisambiguation": { "type": "boolean" },
+      "normalizedQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "raw": { "type": "string" },
+          "kind": { "type": "string", "enum": ["external_id", "jlp_standard", "free_text"] },
+          "namespace": { "type": ["string", "null"] },
+          "externalId": { "type": ["string", "null"] },
+          "year": { "type": ["integer", "null"] },
+          "setCode": { "type": ["string", "null"] },
+          "collectorNumber": { "type": ["string", "null"] },
+          "cardLanguage": { "type": ["string", "null"] },
+          "cardName": { "type": ["string", "null"] }
+        }
+      },
+      "cards": {
+        "type": "array",
+        "maxItems": 8,
+        "items": { "$ref": "common.schema.json#/$defs/CardSummary" }
+      }
+    }
+  }
+}

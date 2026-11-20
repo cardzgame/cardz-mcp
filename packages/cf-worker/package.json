@@ -1,0 +1,14 @@
+{
+  "name": "@cardz/cf-worker",
+  "version": "2.0.0",
+  "description": "Cloudflare Worker remote Streamable HTTP MCP 2.0 endpoint (https://mcp.cardz.game/mcp).",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@cardz/mcp-core": "2.0.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-worker.mjs",
+    "test": "node --test tests/worker.test.mjs"
+  }
+}

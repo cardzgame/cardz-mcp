@@ -1,0 +1,80 @@
+name: "New Card Listing Application"
+description: "Propose a missing physical collectible card or printing for inclusion in CARDZ."
+title: "[New Card] "
+labels: ["new-card-listing", "triage"]
+body:
+  - type: dropdown
+    id: ip
+    attributes:
+      label: "IP / Franchise"
+      options:
+        - pokemon
+        - one-piece
+        - kpop
+        - sports
+        - naruto
+        - other
+    validations:
+      required: true
+  - type: input
+    id: set_code
+    attributes:
+      label: "Official Set Code"
+      placeholder: "SV8 / OP10"
+    validations:
+      required: true
+  - type: input
+    id: set_name
+    attributes:
+      label: "Official Set Name (English)"
+    validations:
+      required: true
+  - type: input
+    id: collector_number
+    attributes:
+      label: "Collector Number"
+      placeholder: "199/165 or OP10-119"
+    validations:
+      required: true
+  - type: dropdown
+    id: card_language
+    attributes:
+      label: "Card Printing Language"
+      options: ["en", "ja", "zh", "ko"]
+    validations:
+      required: true
+  - type: dropdown
+    id: finish_variant
+    attributes:
+      label: "Finish / Artwork Variant"
+      options:
+        - standard
+        - holo
+        - reverse_holo
+        - alt_art
+        - parallel
+        - manga_rare
+        - promo
+        - autograph
+        - numbered_patch
+    validations:
+      required: true
+  - type: input
+    id: official_name
+    attributes:
+      label: "Official Card Name"
+    validations:
+      required: true
+  - type: textarea
+    id: reference_urls
+    attributes:
+      label: "Official Reference / Grading Cert URLs (HTTPS only)"
+    validations:
+      required: true
+  - type: checkboxes
+    id: artwork_declaration
+    attributes:
+      label: "Artwork Quality & Compliance"
+      options:
+        - label: "I confirm any supplied artwork is watermark-free, >=400px wide, aspect ratio 0.65-0.78, and <=512KB WebP/PNG."
+          required: true

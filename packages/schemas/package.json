@@ -1,0 +1,14 @@
+{
+  "name": "@cardz/schemas",
+  "version": "2.0.0",
+  "description": "Public JSON Schema (Draft 2020-12) definitions for CARDZ MCP Server 2.0 tools.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.mjs",
+    "./*.json": "./src/*.json"
+  },
+  "scripts": {
+    "test": "node --test tests/schemas.test.mjs"
+  }
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CARDZ — Public MCP 2.0 Server</title>
+  <style>
+    :root { color-scheme: dark; --bg: #0f1115; --panel: #171a21; --line: #272c36; --fg: #f3f5f8; --muted: #9aa3b2; --accent: #ff6b2c; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); line-height: 1.6; }
+    main { max-width: 880px; margin: 0 auto; padding: 36px 20px 64px; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .04em; }
+    .brand img { height: 32px; width: auto; }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 16px; font-size: 13px; }
+    nav a:hover { color: var(--fg); }
+    h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.15; margin: 28px 0 12px; }
+    .lead { color: var(--muted); font-size: 16px; max-width: 680px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 28px 0; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+    .card h2 { margin: 0 0 8px; font-size: 16px; }
+    pre { background: #0a0c10; border: 1px solid var(--line); border-radius: 10px; padding: 14px; overflow-x: auto; font-size: 13px; color: #e5ecf4; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; background: rgba(255,107,44,.15); color: var(--accent); font-size: 12px; font-weight: 600; }
+    footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand">
+      <img src="/logo.svg" alt="CARDZ">
+      <span>CARDZ</span>
+    </div>
+    <nav>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/support">Support</a>
+      <a href="/tools.json">Tools JSON</a>
+    </nav>
+  </header>
+
+  <p><span class="badge">MCP 2.0 · Zero-Registration Public Access</span></p>
+  <h1>Collectibles &amp; TCG market data inside your AI agent.</h1>
+  <p class="lead">Search exact printings, inspect dated verified vs reference USD prices, query 2025+ OHLCV candles, explore Top 500 cross-region market depth, and evaluate portfolios in ChatGPT, Claude, Gemini, Grok, Cursor, Codex, and Hermes.</p>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Remote Streamable HTTP (No API Key Needed)</h2>
+      <p>Paste this endpoint directly into any Streamable HTTP MCP client:</p>
+      <pre><code>https://mcp.cardz.game/mcp</code></pre>
+      <pre><code>claude mcp add --transport http cardz https://mcp.cardz.game/mcp
+codex mcp add cardz --url https://mcp.cardz.game/mcp
+gemini mcp add --transport http cardz https://mcp.cardz.game/mcp</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Local CLI via <code>npx</code> (stdio or local HTTP)</h2>
+      <p>Run locally with zero credentials, or set optional <code>CARDZ_API_KEY</code> for commercial quotas:</p>
+      <pre><code>{
+  "mcpServers": {
+    "cardz": {
+      "command": "npx",
+      "args": ["-y", "@cardz/mcp-server"]
+    }
+  }
+}</code></pre>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>6 Read-Only Public Tools</h2>
+    <ul>
+      <li><code>search_cards</code> — Exact-printing search by card name, EN/ZH/JA/KO alias, JLP standard alias (e.g. <code>2023 Pikachu [SV2a 025/165] JP</code>), or public external ID (<code>tcgplayer:*</code>, <code>snkrdunk:*</code>).</li>
+      <li><code>get_card</code> — Canonical ID or external ID lookup with PSA 10 reference/verified prices, side-by-side <code>US</code>/<code>JP</code>/<code>CN</code> quotes, population, market cap, and daily history.</li>
+      <li><code>get_market</code> — Published rankings by market cap, 30d volume, sales count, or 30d change.</li>
+      <li><code>get_card_ohlcv</code> — 2025+ daily (<code>1d</code>) and weekly (<code>1w</code>) OHLCV candles up to 730 days.</li>
+      <li><code>get_market_depth</code> — Aggregated cross-region (<code>US</code>, <code>JP</code>, <code>CN</code>, <code>CARDZ_MKT</code>) depth bands for Top 500 cards.</li>
+      <li><code>evaluate_portfolio</code> — Batch valuation &amp; unrealized PnL for up to 50 cards with explicit ambiguity candidates.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>CARDZ · Operated by Jackz Intelligent Technology Co., Ltd., Japan</span>
+    <span>Read-only public market data · Support: support@cardz.game</span>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,73 @@
+name: "Marketplace / Exchange Volume Onboarding"
+description: "Apply to include a trading-card marketplace's verified sales or order-book depth in CARDZ."
+title: "[Exchange Onboarding] "
+labels: ["exchange-onboarding", "triage"]
+body:
+  - type: input
+    id: exchange_name
+    attributes:
+      label: "Marketplace / Exchange Brand Name"
+    validations:
+      required: true
+  - type: input
+    id: website_url
+    attributes:
+      label: "Official HTTPS Website URL"
+    validations:
+      required: true
+  - type: input
+    id: operating_regions
+    attributes:
+      label: "Operating Regions (ISO-3166 alpha-2, comma-separated)"
+      placeholder: "US, JP, HK"
+    validations:
+      required: true
+  - type: input
+    id: settlement_currencies
+    attributes:
+      label: "Settlement Currencies (ISO-4217, comma-separated)"
+      placeholder: "USD, JPY"
+    validations:
+      required: true
+  - type: dropdown
+    id: data_capability
+    attributes:
+      label: "Data Verification Capability"
+      options:
+        - verified_sold_transactions
+        - orderbook_and_sold
+        - active_listings_only
+    validations:
+      required: true
+  - type: textarea
+    id: feed_specification
+    attributes:
+      label: "Public Read-Only API / Incremental Feed Specification"
+      description: "Describe stable tx_id, cursor replay, Best Offer actual settled price handling, shipping separation, and retraction events. Do NOT paste API keys."
+    validations:
+      required: true
+  - type: textarea
+    id: anti_wash_trading_policy
+    attributes:
+      label: "Anti-Wash-Trading & Integrity Controls"
+    validations:
+      required: true
+  - type: input
+    id: sample_dataset_url
+    attributes:
+      label: "Anonymized Sample Dataset URL (HTTPS JSON, >=20 records, zero PII)"
+    validations:
+      required: true
+  - type: input
+    id: legal_contact
+    attributes:
+      label: "Public Technical / Business Contact Email"
+    validations:
+      required: true
+  - type: checkboxes
+    id: security_ack
+    attributes:
+      label: "Security & Sandbox Verification Acknowledgement"
+      options:
+        - label: "I understand this PR is declarative only (no executable code), contains zero API keys or PII, and requires a 14-day internal shadow run before public inclusion."
+          required: true

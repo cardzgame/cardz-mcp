@@ -1,0 +1,15 @@
+# Public read-only CARDZ MCP 2.0 endpoint. No credentials required.
+mcp_servers:
+  cardz_public:
+    url: https://mcp.cardz.game/mcp
+    trust: untrusted
+    tools:
+      include:
+        - search_cards
+        - get_card
+        - get_market
+        - get_card_ohlcv
+        - get_market_depth
+        - evaluate_portfolio
+      resources: false
+      prompts: false

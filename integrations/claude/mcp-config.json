@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cardz": {
+      "type": "streamable-http",
+      "url": "https://mcp.cardz.game/mcp"
+    }
+  }
+}
