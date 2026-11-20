@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CARDZ · Collectibles & TCG Market Data</title>
+  <style>/* STYLE */</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img alt="CARDZ" width="94" height="41" src="ICON">
+    <span>COLLECTIBLES &amp; TCG · MCP 2.0</span>
+  </div>
+  <span class="source-label">PUBLIC MARKET DATA<br><strong>OHLCV · Depth · Portfolio</strong></span>
+</header>
+<main>
+  <form id="search-form" aria-label="Search collectible cards">
+    <label class="sr-only" for="query">Card name or collector number</label>
+    <input id="query" type="search" placeholder="Search a card, name or number" maxlength="160" required>
+    <label class="sr-only" for="game">IP category</label>
+    <select id="game">
+      <option value="">All IPs</option>
+      <option value="pokemon">Pokémon</option>
+      <option value="one-piece">One Piece</option>
+      <option value="kpop">K-pop</option>
+      <option value="sports">Sports</option>
+      <option value="naruto">Naruto</option>
+    </select>
+    <button id="search-button" type="button" class="primary">Search</button>
+  </form>
+  <nav class="scope-nav" aria-label="Market rankings">
+    <span>Explore rankings</span>
+    <div>
+      <button type="button" data-scope="all">All</button>
+      <button type="button" data-scope="pokemon">Pokémon</button>
+      <button type="button" data-scope="one-piece">One Piece</button>
+    </div>
+  </nav>
+  <p id="status" role="status" aria-live="polite">Waiting for card data from your conversation.</p>
+  <p id="error" role="alert" hidden></p>
+  <section id="results" aria-label="Card data">
+    <div class="empty">
+      <h1>Collectibles, in context.</h1>
+      <p>Inspect exact printings, verified vs reference USD prices, 2025+ OHLCV candles, Top 500 cross-region market depth, and portfolio PnL.</p>
+    </div>
+  </section>
+  <footer>
+    <span>USD · Dated market observations, not live executable bids</span>
+    <span>CARDZ · Japan</span>
+  </footer>
+</main>
+<script>/* SCRIPT */</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.cardz.game/mcp/v2/get-market.schema.json",
+  "input": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "scope": {
+        "type": "string",
+        "enum": ["all", "pokemon", "one-piece", "kpop", "sports", "naruto"],
+        "default": "all",
+        "description": "Market-cap ranking scope. Default: 'all'."
+      },
+      "lang": {
+        "type": "string",
+        "enum": ["en", "zh-TW", "ja", "ko"]
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 10,
+        "description": "Top-ranked cards to return (default 10, hard cap 20)."
+      },
+      "sortBy": {
+        "type": "string",
+        "enum": ["market_cap", "vol_30d_usd", "vol_30d_count", "change_30d"],
+        "default": "market_cap",
+        "description": "Optional v2 ranking sort metric aligned with API v2 /v2/market/rankings?sort=; defaults to published market_cap preserving v1 order."
+      }
+    }
+  },
+  "output": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["source", "url", "currency", "effectiveAt", "scope", "publishedRankedCount", "cards"],
+    "properties": {
+      "source": { "type": "string", "const": "CardZ Marketcap" },
+      "url": { "type": "string", "format": "uri" },
+      "currency": { "type": "string", "const": "USD" },
+      "effectiveAt": { "type": "string", "format": "date-time" },
+      "scope": { "type": "string" },
+      "sortBy": { "type": "string", "enum": ["market_cap", "vol_30d_usd", "vol_30d_count", "change_30d"] },
+      "publishedRankedCount": { "type": "integer", "minimum": 0 },
+      "cards": {
+        "type": "array",
+        "maxItems": 20,
+        "items": { "$ref": "common.schema.json#/$defs/CardSummary" }
+      }
+    }
+  }
+}

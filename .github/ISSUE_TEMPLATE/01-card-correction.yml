@@ -1,0 +1,53 @@
+name: "Card Data / Artwork Correction"
+description: "Report a card name typo, collector number error, set/language mismatch, duplicate printing, or artwork issue."
+title: "[Correction] "
+labels: ["card-correction", "triage"]
+body:
+  - type: input
+    id: card_id
+    attributes:
+      label: "CARDZ Card ID or Canonical Card URL"
+      placeholder: "cmc_fc229f7ae1b256b2119fa79b"
+    validations:
+      required: true
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: "Issue Type"
+      options:
+        - name_typo
+        - collector_number
+        - set_mapping
+        - language_mismatch
+        - artwork_wrong
+        - artwork_watermark
+        - duplicate_printing
+        - price_anomaly
+    validations:
+      required: true
+  - type: textarea
+    id: current_value
+    attributes:
+      label: "Current Published Value"
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_value
+    attributes:
+      label: "Proposed Corrected Value"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence_urls
+    attributes:
+      label: "Public Evidence URLs (HTTPS only, one per line)"
+      description: "Provide official set lists, PSA/BGS/CGC cert references, or watermark-free official scans."
+    validations:
+      required: true
+  - type: checkboxes
+    id: attestation
+    attributes:
+      label: "Data Integrity & Watermark Attestation"
+      options:
+        - label: "I confirm all evidence URLs are public HTTPS sources with no third-party platform watermarks or private PII."
+          required: true

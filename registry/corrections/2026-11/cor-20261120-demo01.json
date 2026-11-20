@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0.0",
+  "submissionId": "cor-20261120-demo01",
+  "cardId": "cmc_8149d31b23f05efa50750a0a",
+  "issueType": "name_typo",
+  "proposedPatch": {
+    "localizedNames": {
+      "zh-TW": "月亮伊布 ex"
+    }
+  },
+  "evidenceUrls": [
+    "https://www.pokemon-card.com/card-search/details.php/card/46835"
+  ],
+  "rationale": "Align Traditional Chinese localized display name with official catalog.",
+  "submittedAt": "2026-11-20T00:00:00Z"
+}

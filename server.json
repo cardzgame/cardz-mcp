@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.cardzgame/cardz-mcp",
   "title": "CARDZ MCP",
-  "description": "Pokémon & One Piece PSA 10 data for any AI agent",
-  "version": "1.1.4",
+  "description": "Collectibles & TCG market data, 2025+ OHLCV, Top 500 depth & portfolio PnL for AI agents",
+  "version": "2.0.0",
   "websiteUrl": "https://mcp.cardz.game/",
   "repository": {
     "url": "https://github.com/cardzgame/cardz-mcp",

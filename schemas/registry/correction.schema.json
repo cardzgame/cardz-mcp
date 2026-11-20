@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.cardz.game/registry/v1/correction.schema.json",
+  "type": "object",
+  "required": [
+    "schemaVersion", "submissionId", "cardId", "issueType",
+    "proposedPatch", "evidenceUrls", "submittedAt"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "submissionId": { "type": "string", "pattern": "^cor-[0-9]{8}-[a-z0-9]{4,16}$" },
+    "cardId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$" },
+    "issueType": {
+      "type": "string",
+      "enum": [
+        "name_typo", "collector_number", "set_mapping", "language_mismatch",
+        "artwork_wrong", "artwork_watermark", "duplicate_printing", "price_anomaly"
+      ]
+    },
+    "proposedPatch": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "officialName": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "localizedNames": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "en": { "type": "string", "maxLength": 200 },
+            "zh-TW": { "type": "string", "maxLength": 200 },
+            "ja": { "type": "string", "maxLength": 200 },
+            "ko": { "type": "string", "maxLength": 200 }
+          }
+        },
+        "collectorNumber": { "type": "string", "maxLength": 32 },
+        "setCode": { "type": "string", "maxLength": 48 },
+        "cardLanguage": { "type": "string", "enum": ["en", "ja", "zh", "ko"] },
+        "duplicateOfCardId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$" },
+        "artworkReferenceUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "priceAnomalyNote": { "type": "string", "maxLength": 1000 }
+      }
+    },
+    "evidenceUrls": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": { "type": "string", "format": "uri", "pattern": "^https://" }
+    },
+    "rationale": { "type": "string", "maxLength": 1000 },
+    "submittedAt": { "type": "string", "format": "date-time" }
+  }
+}

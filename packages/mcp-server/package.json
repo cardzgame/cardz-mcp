@@ -1,0 +1,21 @@
+{
+  "name": "@cardz/mcp-server",
+  "version": "2.0.0",
+  "description": "Keyless-first MCP 2.0 server CLI (stdio + local Streamable HTTP) for CARDZ collectibles & TCG market data.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "cardz-mcp": "./src/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/cli.mjs",
+    "./stdio": "./src/stdio.mjs",
+    "./http": "./src/http.mjs"
+  },
+  "dependencies": {
+    "@cardz/mcp-core": "2.0.0"
+  },
+  "scripts": {
+    "test": "node --test tests/stdio-e2e.test.mjs tests/http-local.test.mjs"
+  }
+}

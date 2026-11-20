@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.cardz.game/mcp/v2/common.schema.json",
+  "$defs": {
+    "CardId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+      "description": "Exact CARDZ canonical card ID returned by search_cards."
+    },
+    "CardLookupKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^(?:[A-Za-z0-9][A-Za-z0-9_-]{0,95}|(?:jlp_standard|tcgplayer|snkrdunk|pricecharting|cmc|psa_spec|official_dex):[A-Za-z0-9][A-Za-z0-9_./ -]{0,127})$",
+      "description": "Canonical CARDZ card ID, legacy cmc_* ID, or namespaced public external ID (e.g. 'tcgplayer:518881', 'snkrdunk:102424')."
+    },
+    "PublicIdentityNamespace": {
+      "type": "string",
+      "enum": ["jlp_standard", "tcgplayer", "snkrdunk", "pricecharting", "cmc", "psa_spec", "official_dex"],
+      "description": "Allowlisted public external catalog namespaces only; private upstream identifiers are never exposed."
+    },
+    "ExternalIdentity": {
+      "type": "object",
+      "required": ["namespace", "externalId"],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": { "$ref": "#/$defs/PublicIdentityNamespace" },
+        "externalId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "displayLabel": { "type": ["string", "null"], "maxLength": 200 },
+        "canonicalUrl": { "type": ["string", "null"], "format": "uri" }
+      }
+    },
+    "DisplayLang": {
+      "type": "string",
+      "enum": ["en", "zh-TW", "ja", "ko"],
+      "default": "en",
+      "description": "Language for display labels. Does not filter by card printing language."
+    },
+    "IpScope": {
+      "type": "string",
+      "enum": ["pokemon", "one-piece", "kpop", "sports", "naruto"],
+      "description": "IP / TCG category filter. V1 values ('pokemon', 'one-piece') are preserved."
+    },
+    "GradeCode": {
+      "type": "string",
+      "enum": ["PSA10", "PSA9", "PSA8", "BGS10", "BGS9.5", "CGC10", "RAW"],
+      "default": "PSA10",
+      "description": "Standardized grading / condition tier."
+    },
+    "PriceBasis": {
+      "type": "string",
+      "enum": ["verified_sale", "market_reference", "mixed", "unavailable"],
+      "description": "Distinguishes verified cross-market completed sales, market reference listings, mixed daily candles, or unavailable data."
+    },
+    "ConfidenceTier": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "indicative", "unavailable"]
+    },
+    "MarketRegion": {
+      "type": "string",
+      "enum": ["GLOBAL", "US", "JP", "CN", "CARDZ_MKT"],
+      "description": "Anonymized regional market code aligned with Layer 2 D1; never exposes individual upstream provider names."
+    },
+    "DepthRegionCode": {
+      "type": "string",
+      "enum": ["US", "JP", "CN", "CARDZ_MKT"]
+    },
+    "RegionBreakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "US": { "type": "integer", "minimum": 0 },
+        "JP": { "type": "integer", "minimum": 0 },
+        "CN": { "type": "integer", "minimum": 0 },
+        "CARDZ_MKT": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "CrossMarketRegionQuote": {
+      "type": "object",
+      "required": ["region", "verifiedSaleUsd", "marketReferenceUsd", "asOf", "confidence"],
+      "additionalProperties": false,
+      "properties": {
+        "region": { "$ref": "#/$defs/DepthRegionCode" },
+        "verifiedSaleUsd": { "type": ["number", "null"] },
+        "marketReferenceUsd": { "type": ["number", "null"] },
+        "nativePrice": { "type": ["number", "null"] },
+        "nativeCurrency": { "type": ["string", "null"], "enum": ["USD", "JPY", "CNY", "HKD", "KRW", null] },
+        "salesCount30d": { "type": ["integer", "null"], "minimum": 0 },
+        "asOf": { "type": ["string", "null"], "format": "date-time" },
+        "confidence": { "$ref": "#/$defs/ConfidenceTier" }
+      }
+    },
+    "Metric": {
+      "type": "object",
+      "required": ["value", "status", "asOf"],
+      "properties": {
+        "value": { "type": ["number", "null"] },
+        "status": { "type": "string" },
+        "asOf": { "type": ["string", "null"], "format": "date-time" },
+        "priceBasis": { "$ref": "#/$defs/PriceBasis" },
+        "confidence": { "$ref": "#/$defs/ConfidenceTier" }
+      }
+    },
+    "PublicImage": {
+      "type": ["object", "null"],
+      "required": ["url", "alt", "kind"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "alt": { "type": "string", "maxLength": 500 },
+        "kind": { "type": "string", "const": "raw_front" }
+      }
+    },
+    "CardSummary": {
+      "type": "object",
+      "required": [
+        "id", "name", "officialName", "collectorNumber", "setName",
+        "tcg", "cardLanguage", "marketRank", "url", "image",
+        "pricePsa10", "populationPsa10", "marketCap"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/CardId" },
+        "name": { "type": "string" },
+        "officialName": { "type": "string" },
+        "collectorNumber": { "type": ["string", "null"] },
+        "setName": { "type": ["string", "null"] },
+        "tcg": { "type": "string" },
+        "cardLanguage": { "type": ["string", "null"] },
+        "marketRank": { "type": ["integer", "null"] },
+        "url": { "type": "string", "format": "uri" },
+        "image": { "$ref": "#/$defs/PublicImage" },
+        "pricePsa10": { "$ref": "#/$defs/Metric" },
+        "populationPsa10": { "$ref": "#/$defs/Metric" },
+        "marketCap": { "$ref": "#/$defs/Metric" },
+        "volume30dUsd": { "$ref": "#/$defs/Metric" },
+        "salesCount30d": { "type": ["integer", "null"], "minimum": 0 },
+        "jlpStandardName": { "type": ["string", "null"], "maxLength": 240 },
+        "aliases": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "type": "string", "maxLength": 240 }
+        },
+        "externalIdentities": {
+          "type": "array",
+          "maxItems": 16,
+          "items": { "$ref": "#/$defs/ExternalIdentity" }
+        },
+        "crossMarketQuotes": {
+          "type": "array",
+          "maxItems": 4,
+          "items": { "$ref": "#/$defs/CrossMarketRegionQuote" }
+        }
+      }
+    }
+  }
+}

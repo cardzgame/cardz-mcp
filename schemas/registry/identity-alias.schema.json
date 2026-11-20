@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.cardz.game/registry/v1/identity-alias.schema.json",
+  "type": "object",
+  "required": [
+    "schemaVersion", "identitySubmissionId", "cardId",
+    "externalIdentities", "samePrintingAttested", "evidenceUrls", "submittedAt"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "identitySubmissionId": { "type": "string", "pattern": "^idn-[0-9]{8}-[a-z0-9]{4,16}$" },
+    "cardId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$" },
+    "jlpStandardName": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 240,
+      "pattern": "^(?:(?:199\\d|20\\d{2})\\s+)?[^\\[\\]]+\\s*\\[[^\\[\\]]+\\](?:\\s+(?:JP|JA|EN|CN|ZH|TC|SC|KR|KO))?$"
+    },
+    "externalIdentities": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": ["namespace", "externalId"],
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "enum": ["jlp_standard", "tcgplayer", "snkrdunk", "pricecharting", "cmc", "psa_spec", "official_dex"]
+          },
+          "externalId": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "displayLabel": { "type": "string", "maxLength": 200 },
+          "canonicalUrl": { "type": "string", "format": "uri", "pattern": "^https://" }
+        }
+      }
+    },
+    "aliases": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "en": { "type": "array", "maxItems": 8, "items": { "type": "string", "minLength": 1, "maxLength": 200 } },
+        "zh-TW": { "type": "array", "maxItems": 8, "items": { "type": "string", "minLength": 1, "maxLength": 200 } },
+        "zh-CN": { "type": "array", "maxItems": 8, "items": { "type": "string", "minLength": 1, "maxLength": 200 } },
+        "ja": { "type": "array", "maxItems": 8, "items": { "type": "string", "minLength": 1, "maxLength": 200 } },
+        "ko": { "type": "array", "maxItems": 8, "items": { "type": "string", "minLength": 1, "maxLength": 200 } }
+      }
+    },
+    "samePrintingAttested": { "type": "boolean", "const": true },
+    "evidenceUrls": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": { "type": "string", "format": "uri", "pattern": "^https://" }
+    },
+    "rationale": { "type": "string", "maxLength": 1000 },
+    "submittedAt": { "type": "string", "format": "date-time" }
+  }
+}

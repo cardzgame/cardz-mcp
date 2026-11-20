@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.cardz.game/mcp/v2/get-market-depth.schema.json",
+  "input": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["id"],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 96,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+      },
+      "grade": {
+        "type": "string",
+        "enum": ["PSA10", "PSA9", "RAW"],
+        "default": "PSA10"
+      },
+      "maxLevels": {
+        "type": "integer",
+        "minimum": 3,
+        "maximum": 20,
+        "default": 10
+      },
+      "lang": {
+        "type": "string",
+        "enum": ["en", "zh-TW", "ja", "ko"]
+      }
+    }
+  },
+  "output": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+      "source", "currency", "cardId", "grade", "supported",
+      "snapshotAt", "liquidityTier"
+    ],
+    "properties": {
+      "source": { "type": "string", "const": "CardZ Marketcap" },
+      "currency": { "type": "string", "const": "USD" },
+      "cardId": { "$ref": "common.schema.json#/$defs/CardId" },
+      "cardName": { "type": "string" },
+      "url": { "type": "string", "format": "uri" },
+      "grade": { "type": "string", "enum": ["PSA10", "PSA9", "RAW"] },
+      "supported": { "type": "boolean" },
+      "unsupportedReason": { "type": ["string", "null"] },
+      "snapshotAt": { "type": "string", "format": "date-time" },
+      "liquidityTier": {
+        "type": "string",
+        "enum": ["tier1_top100", "tier2_top500", "untracked"]
+      },
+      "liquidityRank": { "type": ["integer", "null"], "minimum": 1, "maximum": 500 },
+      "summary": {
+        "type": ["object", "null"],
+        "required": [
+          "lowestAskUsd", "highestBidUsd", "recentSaleMedianUsd",
+          "askToSaleSpreadPct", "totalAskCount", "totalRecentSaleCount", "coveredRegions"
+        ],
+        "properties": {
+          "lowestAskUsd": { "type": ["number", "null"] },
+          "highestBidUsd": { "type": ["number", "null"] },
+          "recentSaleMedianUsd": { "type": ["number", "null"] },
+          "askToSaleSpreadPct": { "type": ["number", "null"] },
+          "totalAskCount": { "type": "integer", "minimum": 0 },
+          "totalRecentSaleCount": { "type": "integer", "minimum": 0 },
+          "coveredRegions": {
+            "type": "array",
+            "items": { "$ref": "common.schema.json#/$defs/DepthRegionCode" }
+          }
+        }
+      },
+      "askLevels": {
+        "type": "array",
+        "maxItems": 20,
+        "items": {
+          "type": "object",
+          "required": ["bucketIndex", "priceMinUsd", "priceMaxUsd", "midPriceUsd", "itemCount", "cumulativeCount", "regionBreakdown"],
+          "properties": {
+            "bucketIndex": { "type": "integer", "minimum": 0, "maximum": 24 },
+            "priceMinUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "priceMaxUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "midPriceUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "itemCount": { "type": "integer", "minimum": 1 },
+            "cumulativeCount": { "type": "integer", "minimum": 1 },
+            "regionBreakdown": { "$ref": "common.schema.json#/$defs/RegionBreakdown" }
+          }
+        }
+      },
+      "recentSaleLevels": {
+        "type": "array",
+        "maxItems": 20,
+        "items": {
+          "type": "object",
+          "required": ["bucketIndex", "priceMinUsd", "priceMaxUsd", "midPriceUsd", "itemCount", "cumulativeCount", "windowDays", "regionBreakdown"],
+          "properties": {
+            "bucketIndex": { "type": "integer", "minimum": 0, "maximum": 24 },
+            "priceMinUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "priceMaxUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "midPriceUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "itemCount": { "type": "integer", "minimum": 1 },
+            "cumulativeCount": { "type": "integer", "minimum": 1 },
+            "windowDays": { "type": "integer", "minimum": 1, "maximum": 90 },
+            "regionBreakdown": { "$ref": "common.schema.json#/$defs/RegionBreakdown" }
+          }
+        }
+      },
+      "bidLevels": {
+        "type": "array",
+        "maxItems": 20,
+        "items": {
+          "type": "object",
+          "required": ["bucketIndex", "priceMinUsd", "priceMaxUsd", "midPriceUsd", "itemCount", "cumulativeCount", "regionBreakdown"],
+          "properties": {
+            "bucketIndex": { "type": "integer", "minimum": 0, "maximum": 24 },
+            "priceMinUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "priceMaxUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "midPriceUsd": { "type": "number", "exclusiveMinimum": 0 },
+            "itemCount": { "type": "integer", "minimum": 1 },
+            "cumulativeCount": { "type": "integer", "minimum": 1 },
+            "regionBreakdown": { "$ref": "common.schema.json#/$defs/RegionBreakdown" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "listingId": "lst-pokemon-sv8-pika238",
+  "ip": "pokemon",
+  "setCode": "SV8",
+  "setName": {
+    "en": "Surging Sparks",
+    "zh-TW": "超電突破",
+    "ja": "超電ブレイカー"
+  },
+  "collectorNumber": "238/191",
+  "cardLanguage": "en",
+  "finishVariant": "alt_art",
+  "officialName": "Pikachu ex",
+  "localizedNames": {
+    "en": "Pikachu ex",
+    "zh-TW": "皮卡丘 ex",
+    "ja": "ピカチュウex"
+  },
+  "releaseDate": "2024-11-08",
+  "externalIdentifiers": {
+    "officialDexOrProductCode": "SV08-238",
+    "psaCertSample": "98765432"
+  },
+  "artwork": {
+    "relativePath": "./pikachu-238.png",
+    "sha256": "a89d411a8a27d2598cc8f3c81be6ba70ff738e394df423b6f2d99def415af7d7",
+    "widthPx": 420,
+    "heightPx": 600,
+    "watermarkFreeDeclared": true
+  },
+  "evidenceUrls": [
+    "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/sv08/238/"
+  ],
+  "submittedAt": "2026-11-20T00:00:00Z"
+}

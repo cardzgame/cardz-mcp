@@ -1,0 +1,16 @@
+{
+  "name": "@cardz/mcp-core",
+  "version": "2.0.0",
+  "description": "Shared core tools, validation, API v2/v1 client, and stateless JSON-RPC dispatcher for CARDZ MCP 2.0.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "dependencies": {
+    "@cardz/schemas": "2.0.0"
+  },
+  "scripts": {
+    "test": "node --test tests/v1-compat.test.mjs tests/ohlcv-depth.test.mjs tests/portfolio.test.mjs tests/identity-normalization.test.mjs tests/security-boundary.test.mjs"
+  }
+}

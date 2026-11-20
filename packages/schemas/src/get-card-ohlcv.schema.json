@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.cardz.game/mcp/v2/get-card-ohlcv.schema.json",
+  "input": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["id"],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 96,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+        "description": "Exact CARDZ card ID from search_cards."
+      },
+      "grade": {
+        "type": "string",
+        "enum": ["PSA10", "PSA9", "PSA8", "BGS10", "BGS9.5", "CGC10", "RAW"],
+        "default": "PSA10"
+      },
+      "interval": {
+        "type": "string",
+        "enum": ["1d", "1w"],
+        "default": "1d"
+      },
+      "region": {
+        "type": "string",
+        "enum": ["GLOBAL", "US", "JP", "CN", "CARDZ_MKT"],
+        "default": "GLOBAL"
+      },
+      "days": {
+        "type": "integer",
+        "minimum": 7,
+        "maximum": 730,
+        "default": 90
+      },
+      "from": {
+        "type": "string",
+        "pattern": "^20(2[5-9]|[3-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+      },
+      "to": {
+        "type": "string",
+        "pattern": "^20(2[5-9]|[3-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+      },
+      "lang": {
+        "type": "string",
+        "enum": ["en", "zh-TW", "ja", "ko"]
+      }
+    }
+  },
+  "output": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+      "source", "currency", "card", "grade", "interval",
+      "seriesStartDate", "effectiveAt", "summary", "candles"
+    ],
+    "properties": {
+      "source": { "type": "string", "const": "CardZ Marketcap" },
+      "currency": { "type": "string", "const": "USD" },
+      "card": {
+        "type": "object",
+        "required": ["id", "name", "collectorNumber", "tcg", "cardLanguage", "url"],
+        "properties": {
+          "id": { "$ref": "common.schema.json#/$defs/CardId" },
+          "name": { "type": "string" },
+          "collectorNumber": { "type": ["string", "null"] },
+          "tcg": { "type": "string" },
+          "cardLanguage": { "type": ["string", "null"] },
+          "url": { "type": "string", "format": "uri" }
+        }
+      },
+      "grade": { "$ref": "common.schema.json#/$defs/GradeCode" },
+      "interval": { "type": "string", "enum": ["1d", "1w"] },
+      "region": { "$ref": "common.schema.json#/$defs/MarketRegion" },
+      "seriesStartDate": { "type": ["string", "null"] },
+      "effectiveAt": { "type": "string", "format": "date-time" },
+      "summary": {
+        "type": "object",
+        "required": [
+          "periodHighUsd", "periodLowUsd", "periodChangePct",
+          "totalVolumeUsd", "totalSalesCount", "activeTradingDays", "totalDaysInWindow"
+        ],
+        "properties": {
+          "periodHighUsd": { "type": ["number", "null"] },
+          "periodLowUsd": { "type": ["number", "null"] },
+          "periodChangePct": { "type": ["number", "null"] },
+          "totalVolumeUsd": { "type": ["number", "null"] },
+          "totalSalesCount": { "type": "integer", "minimum": 0 },
+          "activeTradingDays": { "type": "integer", "minimum": 0 },
+          "totalDaysInWindow": { "type": "integer", "minimum": 0 }
+        }
+      },
+      "candles": {
+        "type": "array",
+        "maxItems": 731,
+        "items": {
+          "type": "object",
+          "required": [
+            "date", "openUsd", "highUsd", "lowUsd", "closeUsd", "medianUsd",
+            "volumeUsd", "salesCount", "priceBasis", "activeMarketsCount"
+          ],
+          "properties": {
+            "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+            "openUsd": { "type": ["number", "null"] },
+            "highUsd": { "type": ["number", "null"] },
+            "lowUsd": { "type": ["number", "null"] },
+            "closeUsd": { "type": ["number", "null"] },
+            "medianUsd": { "type": ["number", "null"] },
+            "vwapUsd": { "type": ["number", "null"] },
+            "volumeUsd": { "type": ["number", "null"], "minimum": 0 },
+            "salesCount": { "type": "integer", "minimum": 0 },
+            "priceBasis": { "$ref": "common.schema.json#/$defs/PriceBasis" },
+            "activeMarketsCount": { "type": "integer", "minimum": 0 },
+            "isSyntheticFlat": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

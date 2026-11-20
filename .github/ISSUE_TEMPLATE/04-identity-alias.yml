@@ -1,0 +1,48 @@
+name: "Cross-Market Identity & Alias Mapping"
+description: "Link a canonical CARDZ card_id to verified public external IDs (JLP standard alias, TCGplayer, SNKRDUNK, PriceCharting, PSA Spec) or multilingual aliases."
+title: "[Identity Alias] "
+labels: ["identity-alias", "triage"]
+body:
+  - type: input
+    id: card_id
+    attributes:
+      label: "Canonical CARDZ Card ID"
+      placeholder: "c24b961b6a7701ce5"
+    validations:
+      required: true
+  - type: input
+    id: jlp_standard_name
+    attributes:
+      label: "JLP Standard Alias (optional)"
+      placeholder: "2023 Pikachu [SV2a 025/165] JP"
+    validations:
+      required: false
+  - type: textarea
+    id: external_identities
+    attributes:
+      label: "Public External IDs (one per line, format: namespace:id)"
+      description: "Allowed public namespaces ONLY: jlp_standard, tcgplayer, snkrdunk, pricecharting, cmc, psa_spec, official_dex."
+      placeholder: |
+        tcgplayer:518881
+        snkrdunk:102424
+    validations:
+      required: true
+  - type: textarea
+    id: multilingual_aliases
+    attributes:
+      label: "Multilingual Aliases (EN / ZH / JA / KO, optional)"
+    validations:
+      required: false
+  - type: textarea
+    id: evidence_urls
+    attributes:
+      label: "Public Evidence URLs (HTTPS only, proving exact same printing, language, and finish)"
+    validations:
+      required: true
+  - type: checkboxes
+    id: same_printing_attestation
+    attributes:
+      label: "Exact-Printing Verification"
+      options:
+        - label: "I confirm every submitted external ID and alias refers to the exact same card printing (set, collector number, language, finish/holo/reverse/alt-art) and contains zero private vendor IDs."
+          required: true

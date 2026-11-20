@@ -1,0 +1,33 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cardz-marketcap",
+  "version": "2.0.0",
+  "description": "CARDZ collectible-card and TCG market data: exact-printing search, verified vs reference prices, 2025+ OHLCV candles, Top 500 market depth, rankings, and portfolio valuation.",
+  "author": {
+    "name": "CARDZ",
+    "email": "support@cardz.game",
+    "url": "https://mcp.cardz.game/"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "CARDZ",
+        "shortDescription": "Collectibles & TCG market data",
+        "longDescription": "CARDZ provides public collectible-card and trading-card market data across Pokémon, One Piece, and expanding collectible IPs. Search exact printings, inspect dated USD prices and 2025+ OHLCV candles, explore Top 500 cross-region market depth, view published rankings, or evaluate a multi-card portfolio with explicit disambiguation. Read-only service with no player account or payment access. Operated by Jackz Intelligent Technology Co., Ltd., Japan.",
+        "developerName": "CARDZ",
+        "category": "Data & Analytics",
+        "defaultPrompt": [
+          "Find the different printings of OP05-119.",
+          "Show 90-day OHLCV candles and volume for a Pokémon card.",
+          "Evaluate my PSA 10 portfolio and flag any ambiguous printings."
+        ],
+        "websiteURL": "https://mcp.cardz.game/",
+        "supportURL": "https://mcp.cardz.game/support",
+        "privacyPolicyURL": "https://mcp.cardz.game/privacy",
+        "termsOfServiceURL": "https://mcp.cardz.game/terms",
+        "logo": "../../assets/brand/icon.png",
+        "composerIcon": "../../assets/brand/icon.png"
+      }
+    }
+  }
+}

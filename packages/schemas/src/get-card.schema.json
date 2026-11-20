@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.cardz.game/mcp/v2/get-card.schema.json",
+  "input": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["id"],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160,
+        "pattern": "^(?:[A-Za-z0-9][A-Za-z0-9_-]{0,95}|(?:jlp_standard|tcgplayer|snkrdunk|pricecharting|cmc|psa_spec|official_dex):[A-Za-z0-9][A-Za-z0-9_./\\[\\] -]{0,127})$",
+        "description": "Exact CARDZ canonical card ID, legacy cmc_* ID, or namespaced public external ID (e.g. 'tcgplayer:518881', 'snkrdunk:102424', 'jlp_standard:2023 Pikachu [SV2a 025/165] JP')."
+      },
+      "lang": {
+        "type": "string",
+        "enum": ["en", "zh-TW", "ja", "ko"]
+      },
+      "historyDays": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 365,
+        "default": 90,
+        "description": "Days of daily price history to include counting back from the latest published point (default 90, max 365)."
+      },
+      "grade": {
+        "type": "string",
+        "enum": ["PSA10", "PSA9", "PSA8", "BGS10", "BGS9.5", "CGC10", "RAW"],
+        "default": "PSA10",
+        "description": "Optional v2 parameter to inspect a specific grade's quote breakdown; PSA 10 legacy fields remain populated."
+      }
+    }
+  },
+  "output": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "allOf": [{ "$ref": "common.schema.json#/$defs/CardSummary" }],
+    "required": [
+      "source", "currency", "windows", "historyDays",
+      "historyThrough", "historyDaily"
+    ],
+    "properties": {
+      "source": { "type": "string", "const": "CardZ Marketcap" },
+      "currency": { "type": "string", "const": "USD" },
+      "resolvedFrom": {
+        "type": "string",
+        "enum": ["canonical_id", "legacy_alias", "external_identity", "jlp_standard"]
+      },
+      "windows": { "type": "object" },
+      "historyDays": { "type": "integer", "minimum": 1, "maximum": 365 },
+      "historyThrough": { "type": ["string", "null"], "format": "date-time" },
+      "historyDaily": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["at", "priceUsd", "priceStatus", "trackedSalesValueUsd", "trackedSalesCount"],
+          "properties": {
+            "at": { "type": "string", "format": "date-time" },
+            "priceUsd": { "type": ["number", "null"] },
+            "priceStatus": { "type": "string" },
+            "trackedSalesValueUsd": { "type": ["number", "null"] },
+            "trackedSalesCount": { "type": ["integer", "null"] }
+          }
+        }
+      },
+      "quotesByGrade": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "required": ["verifiedSalePrice", "marketReferencePrice"],
+          "properties": {
+            "verifiedSalePrice": { "$ref": "common.schema.json#/$defs/Metric" },
+            "marketReferencePrice": { "$ref": "common.schema.json#/$defs/Metric" },
+            "salesCount30d": { "type": ["integer", "null"], "minimum": 0 },
+            "activeMarketsCount": { "type": "integer", "minimum": 0 }
+          }
+        }
+      },
+      "hasOrderBookDepth": { "type": "boolean" }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@cardz/mcp-app-ui",
+  "version": "2.0.0",
+  "description": "CARDZ MCP Apps 2.0 interactive UI bundle supporting search, rankings, OHLCV, market depth, and portfolio valuation.",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^2.0.3"
+  },
+  "scripts": {
+    "build": "node scripts/build-ui.mjs",
+    "test": "node --test tests/ui.test.mjs"
+  }
+}
